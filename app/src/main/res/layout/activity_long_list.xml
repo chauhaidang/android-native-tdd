@@ -17,7 +17,7 @@
             android:text="@string/row_label" />
 
         <TextView
-            android:id="@+id/selection_row_value"
+            android:id="@+id/selectedRowValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/selection_row_value_margin"
