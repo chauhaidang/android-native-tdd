@@ -10,7 +10,7 @@ import androidx.annotation.VisibleForTesting;
 
 public class ToastActivity extends Activity {
     @VisibleForTesting()
-    public boolean toastShow = false;
+    boolean toastShow = false;
 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
