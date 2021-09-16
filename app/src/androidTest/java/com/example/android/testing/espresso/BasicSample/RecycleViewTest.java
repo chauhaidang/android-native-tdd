@@ -12,17 +12,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import android.os.IBinder;
-import android.view.WindowManager;
 
 import androidx.test.espresso.PerformException;
-import androidx.test.espresso.Root;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
+import com.example.android.testing.espresso.BasicSample.matcher.RecycleViewMiddleMatcher;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,45 +67,7 @@ public class RecycleViewTest {
         onView(withText(middleElementText)).check(matches(isDisplayed()));
     }
 
-    @Test
-    public void toastMessage_shouldDisplay() {
-        onView(withId(R.id.buttonShowToast)).perform(click());
-        onView(withText(R.string.toast_text))
-                .inRoot(new ToastMatcher())
-                .check(matches(isDisplayed()));
-    }
 
-    class RecycleViewMiddleMatcher extends TypeSafeMatcher<CustomAdapter.ViewHolder> {
-
-        @Override
-        public void describeTo(Description description) {
-            description.appendText("item in the middle");
-        }
-
-        @Override
-        protected boolean matchesSafely(CustomAdapter.ViewHolder customHolder) {
-            return customHolder.getIsInTheMiddle();
-        }
-    }
-
-    class ToastMatcher extends TypeSafeMatcher<Root> {
-
-        @Override
-        protected boolean matchesSafely(Root item) {
-            int type = item.getWindowLayoutParams().get().type;
-            if (type == WindowManager.LayoutParams.TYPE_TOAST) {
-                IBinder windowToken = item.getDecorView().getWindowToken();
-                IBinder appToken = item.getDecorView().getApplicationWindowToken();
-                return windowToken == appToken;
-            }
-            return false;
-        }
-
-        @Override
-        public void describeTo(Description description) {
-            description.appendText("Match Toast");
-        }
-    }
 }
 
 

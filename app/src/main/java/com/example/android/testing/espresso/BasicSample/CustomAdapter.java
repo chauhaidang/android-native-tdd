@@ -34,7 +34,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             return textView;
         }
 
-        boolean getIsInTheMiddle() {
+        public boolean getIsInTheMiddle() {
             return mIsInTheMiddle;
         }
 
