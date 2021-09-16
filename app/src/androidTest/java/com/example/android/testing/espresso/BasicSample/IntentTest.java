@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
 public class IntentTest {
     private static final String VALID_PHONE_NUMBER = "123-345-6789";
 
-    private static final Uri INTENT_DATA_PHONE_NUMBER = Uri.parse("tele:" + VALID_PHONE_NUMBER);
+    private static final Uri INTENT_DATA_PHONE_NUMBER = Uri.parse("tel: +84" + VALID_PHONE_NUMBER);
 
     @Rule public GrantPermissionRule grantPermissionRule = GrantPermissionRule.grant("android.permission.CALL_PHONE");
 
@@ -58,7 +58,8 @@ public class IntentTest {
     @Before
     public void stubAllExternalIntents() {
         // By default Espresso Intents does not stub any Intents. Stubbing needs to be setup before
-        // every test run. In this case all external Intents will be blocked.
+        // every test run so that all set up intent is captured & intercepted.
+        // In this case all external Intents will be blocked.
         //intending(not(isInternal())).respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK, null));
     }
 
@@ -90,7 +91,7 @@ public class IntentTest {
         // Verify that an intent to the dialer was sent with the correct action, phone
         // number and package.
         Intent receivedIntent = Iterables.getOnlyElement(Intents.getIntents());
-        assertThat(receivedIntent).hasAction(Intent.ACTION_CALL);
+        assertThat(receivedIntent).hasAction(Intent.ACTION_DIAL);
         assertThat(receivedIntent).hasData(INTENT_DATA_PHONE_NUMBER);
     }
 
@@ -99,14 +100,16 @@ public class IntentTest {
         // Stub all Intents to ContactsActivity to return VALID_PHONE_NUMBER. Note that the Activity
         // is never launched and result is stubbed.
         intending(hasComponent(hasShortClassName(".ContactsActivity")))
-                .respondWith(new Instrumentation.ActivityResult(Activity.RESULT_OK,
-                        ContactsActivity.createResultData(VALID_PHONE_NUMBER)));
+                .respondWith(new Instrumentation.ActivityResult(
+                        Activity.RESULT_OK,
+                        ContactsActivity.createResultData("+84" + VALID_PHONE_NUMBER)
+                ));
 
         // Click the pick contact button.
         onView(withId(R.id.button_pick_contact)).perform(click());
 
         // Check that the number is displayed in the UI.
         onView(withId(R.id.edit_text_caller_number))
-                .check(matches(withText(VALID_PHONE_NUMBER)));
+                .check(matches(withText("+84" + VALID_PHONE_NUMBER)));
     }
 }
