@@ -25,4 +25,5 @@
     <string name="middle">This is the middle!</string>
     <string name="item_element_text">This is element #</string>
     <string name="button_show_toast_text">Click to show toast message</string>
+    <string name="toast_text">HELLO, TOAST HERE!</string>
 </resources>
