@@ -25,7 +25,7 @@ public class RecycleViewActivity extends Activity {
 
         List<String> dataSet = new ArrayList<>(DATASET_COUNT);
         for (int i = 0; i < DATASET_COUNT; i++) {
-            dataSet.add(getString(R.string.item_element_text) + i);
+            dataSet.add(getString(R.string.item_element_text) + (i+1));
         }
         CustomAdapter adapter = new CustomAdapter(dataSet, getApplicationContext());
         recyclerView.setAdapter(adapter);

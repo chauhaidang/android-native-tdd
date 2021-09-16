@@ -26,8 +26,7 @@ import org.junit.runner.RunWith;
 @RunWith(AndroidJUnit4.class)
 @LargeTest
 public class RecycleViewTest {
-    private static final int ITEM_BELOW_THE_FOLD = 51;
-    private static final int ITEM_TO_SCROLL_INTO = 100;
+    private static final int ITEM_TO_SCROLL_INTO = 99;
 
     @Rule public ActivityScenarioRule<RecycleViewActivity> recycleViewActivity =
             new ActivityScenarioRule<>(RecycleViewActivity.class);
@@ -51,7 +50,7 @@ public class RecycleViewTest {
 
         // Match the text in an item below the fold and check that it's displayed.
         String itemElementText = getApplicationContext().getResources().getString(
-                R.string.item_element_text) + ITEM_TO_SCROLL_INTO;
+                R.string.item_element_text) + (ITEM_TO_SCROLL_INTO + 1);
         onView(withText(itemElementText)).check(matches(isDisplayed()));
     }
 
