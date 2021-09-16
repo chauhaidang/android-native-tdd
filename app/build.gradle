@@ -11,42 +11,41 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
     }
     lintOptions {
         abortOnError false
     }
-    productFlavors {
-    }
-    testOptions {
-        unitTests {
-            includeAndroidResources = true
-        }
-    }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
 }
 
 dependencies {
     // App dependencies
-    implementation 'androidx.annotation:annotation:' + rootProject.androidxAnnotationVersion;
+    implementation 'androidx.annotation:annotation:' + rootProject.androidxAnnotationVersion
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.guava:guava:' + rootProject.guavaVersion
+    // Core library
+    androidTestImplementation 'androidx.test:core:1.4.0'
 
-    // Testing-only dependencies
-    androidTestImplementation 'androidx.test:core:' + rootProject.coreVersion
-    androidTestImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
-    androidTestImplementation 'androidx.test:runner:' + rootProject.runnerVersion
-    androidTestImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
-    androidTestImplementation 'androidx.test:rules:' + rootProject.runnerVersion
+    // AndroidJUnitRunner and JUnit Rules
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
 
-    testImplementation 'androidx.test:core:' + rootProject.coreVersion;
-    testImplementation 'androidx.test.ext:junit:' + rootProject.extJUnitVersion
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:' + rootProject.robolectricVersion
-    testImplementation 'androidx.test.espresso:espresso-core:' + rootProject.espressoVersion
-    testImplementation 'androidx.test.espresso:espresso-intents:' + rootProject.espressoVersion
-    testImplementation 'androidx.test.ext:truth:' + rootProject.extTruthVersion
+    // Assertions
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.ext:truth:1.4.0'
+    androidTestImplementation 'com.google.truth:truth:1.0.1'
+
+    // Espresso dependencies
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.4.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.4.0'
 }
